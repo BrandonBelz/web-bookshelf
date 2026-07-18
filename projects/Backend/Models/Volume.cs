@@ -19,5 +19,5 @@ public class Volume
     public List<Book> Books { get; set; } = new List<Book>();
 
     [NotMapped]
-    public bool IsOwned => ObtainedDate.HasValue;
+    public bool IsOwned => ObtainedDate != null;
 }
