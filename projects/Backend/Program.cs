@@ -11,6 +11,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<BookRepository>();
 builder.Services.AddScoped<AuthorRepository>();
+builder.Services.AddScoped<VolumeRepository>();
 
 string? defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (string.IsNullOrEmpty(defaultConnectionString))
