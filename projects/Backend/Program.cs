@@ -10,6 +10,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<BookRepository>();
+builder.Services.AddScoped<AuthorRepository>();
 
 string? defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (string.IsNullOrEmpty(defaultConnectionString))
