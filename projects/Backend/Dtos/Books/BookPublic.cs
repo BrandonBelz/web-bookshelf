@@ -20,5 +20,4 @@ public class BookPublic
     public VolumeMinimized? Volume { get; set; }
 
     public bool IsPartOfVolume => Volume != null && Volume.Books.Count > 1;
-    public bool IsOwned => Volume != null && Volume.IsOwned;
 }

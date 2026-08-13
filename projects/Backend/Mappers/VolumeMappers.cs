@@ -13,7 +13,7 @@ public static class VolumeMappers
             Title = volume.Title,
             Isbn = volume.Isbn,
             Books = volume.Books.Select(b => b.ToBookMinimized()).ToList(),
-            VolumeSet = volume.Set?.ToVolumeSetMinimized(),
+            VolumeSetId = volume.SetId,
             IsOwned = volume.IsOwned,
         };
     }

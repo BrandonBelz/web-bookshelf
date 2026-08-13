@@ -59,13 +59,15 @@ public class BookRepository
             }
         }
 
+        Volume? volume = await _context.Volumes.FindAsync(dto.VolumeId);
+
         Book book = new Book
         {
             Title = dto.Title,
             Description = dto.Description,
             Rating = dto.Rating,
             Review = dto.Review,
-            VolumeId = dto.VolumeId,
+            Volume = volume,
             Authors = authors,
         };
 
