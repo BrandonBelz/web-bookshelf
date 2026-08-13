@@ -15,4 +15,16 @@ public class AppDbContext : DbContext
     public DbSet<Shelving> Shelvings { get; set; } = null!;
     public DbSet<Volume> Volumes { get; set; } = null!;
     public DbSet<VolumeSet> VolumeSets { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder
+            .Entity<Volume>()
+            .HasOne(v => v.Set)
+            .WithMany(vs => vs.Volumes)
+            .HasForeignKey(v => v.SetId)
+            .OnDelete(DeleteBehavior.SetNull);
+    }
 }
