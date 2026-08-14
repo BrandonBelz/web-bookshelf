@@ -1,5 +1,5 @@
 import { Layout, Menu } from 'antd';
-import AppRoutes from './Components/AppRoutes';
+import AppRoutes from './components/AppRoutes';
 import { useNavigate } from 'react-router-dom';
 
 const { Sider, Content } = Layout;
@@ -13,13 +13,12 @@ function App() {
         <Menu theme='dark' onClick={({ key }) => {
           navigate(key);
         }} items={[
-          { label: 'Home', key: '/' },
           { label: 'Books', key: '/books' },
           { label: 'Authors', key: '/authors' },
           { label: 'Volumes', key: '/volumes' },
         ]}></Menu>
       </Sider>
-      <Content>
+      <Content style={{ padding: '24px', overflowY: 'auto' }}>
         <AppRoutes />
       </Content>
     </Layout>
