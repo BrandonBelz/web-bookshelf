@@ -28,7 +28,7 @@ public class AuthorController : ControllerBase
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AuthorPublic), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         Author? author = await _authorRepo.GetAuthorAsync(id);
@@ -43,7 +43,7 @@ public class AuthorController : ControllerBase
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         Author? author = await _authorRepo.DeleteAuthorAsync(id);
@@ -66,7 +66,7 @@ public class AuthorController : ControllerBase
 
     [HttpPut("{id}/name")]
     [ProducesResponseType(typeof(AuthorPublic), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateName(
         [FromRoute] int id,
         [FromBody] AuthorUpdateNameDto dto

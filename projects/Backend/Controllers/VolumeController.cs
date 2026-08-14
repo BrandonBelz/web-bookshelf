@@ -27,7 +27,7 @@ public class VolumeController : ControllerBase
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(VolumePublic), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> GetVolume(int id)
     {
         Volume? volume = await _volumeRepo.GetVolumeByIdAsync(id);
@@ -51,8 +51,8 @@ public class VolumeController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteVolume(int id)
     {
         Volume? deleted = await _volumeRepo.DeleteVolumeAsync(id);

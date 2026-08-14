@@ -26,7 +26,7 @@ public class BookController : ControllerBase
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(BookPublic), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         Book? book = await _bookRepo.GetBookAsync(id);
@@ -41,7 +41,7 @@ public class BookController : ControllerBase
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         Book? book = await _bookRepo.DeleteBookAsync(id);
