@@ -8,5 +8,5 @@ public class VolumeSetPublic
     public string Title { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public List<VolumePublic> Volumes { get; set; } = new();
+    public List<VolumeMinimized> Volumes { get; set; } = new();
 }

@@ -23,7 +23,7 @@ public static class VolumeSetMappers
             Title = volumeSet.Title,
             CreatedAt = volumeSet.CreatedAt,
             UpdatedAt = volumeSet.UpdatedAt,
-            Volumes = volumeSet.Volumes.Select(v => v.ToVolumePublic()).ToList(),
+            Volumes = volumeSet.Volumes.Select(v => v.ToVolumeMinimized()).ToList(),
         };
     }
 }
