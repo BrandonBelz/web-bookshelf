@@ -1,5 +1,7 @@
 import { Card, Col, Row, Typography } from 'antd';
 import { useState, useEffect } from 'react';
+import Loading from './Loading';
+import Error from './Error';
 
 const { Title } = Typography;
 
@@ -17,11 +19,20 @@ export default function ListPage<T extends { id: number }>({
   getCardDescription
 }: ListPageProps<T>) {
   const [items, setItems] = useState<T[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchItems = async () => {
-      const response = await fetchData();
-      setItems(response.data);
+      setLoading(true);
+      try {
+        const response = await fetchData();
+        setItems(response.data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      };
     };
     fetchItems();
   }, [fetchData]);
@@ -29,15 +40,19 @@ export default function ListPage<T extends { id: number }>({
   return (
     <>
       <Title level={2}>{pageTitle}</Title>
-      <Row gutter={[16, 16]}>
-        {items.map((item) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={item.id} span={6}>
-            <Card hoverable title={getCardTitle(item)}>
-              {getCardDescription && <Card.Meta description={getCardDescription(item)} />}
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {loading && <Loading />}
+      {error && <Error message={error} />}
+      {!(loading || error) && (
+        <Row gutter={[16, 16]}>
+          {items.map((item) => (
+            <Col xs={24} sm={12} md={8} lg={6} key={item.id} span={6}>
+              <Card hoverable title={getCardTitle(item)}>
+                {getCardDescription && <Card.Meta description={getCardDescription(item)} />}
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   )
 }
