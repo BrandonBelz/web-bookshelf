@@ -2,6 +2,9 @@ import { Routes, Route } from 'react-router-dom';
 import BooksPage from './BooksPage';
 import AuthorsPage from './AuthorsPage';
 import VolumesPage from './VolumesPage';
+import AuthorDetails from './AuthorDetails';
+import BookDetails from './BookDetails';
+import VolumeDetails from './VolumeDetails';
 
 export default function AppRoutes() {
   return (
@@ -9,6 +12,9 @@ export default function AppRoutes() {
       <Route path="/books" element={<BooksPage />} />
       <Route path="/authors" element={<AuthorsPage />} />
       <Route path="/volumes" element={<VolumesPage />} />
+      <Route path="books/:id" element={<BookDetails />} />
+      <Route path="volumes/:id" element={<VolumeDetails />} />
+      <Route path="authors/:id" element={<AuthorDetails />} />
     </Routes>
   );
 }

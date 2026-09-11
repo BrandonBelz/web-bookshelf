@@ -1,4 +1,4 @@
-import { Card, Col, Row, Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import { useState, useEffect } from 'react';
 import Loading from './Loading';
 import Error from './Error';
@@ -8,15 +8,13 @@ const { Title } = Typography;
 interface ListPageProps<T> {
   pageTitle: string;
   fetchData: () => Promise<{ data: T[] }>;
-  getCardTitle: (item: T) => string;
-  getCardDescription?: (item: T) => React.ReactNode;
+  renderCard: (item: T) => React.ReactNode;
 };
 
 export default function ListPage<T extends { id: number }>({
   pageTitle,
   fetchData,
-  getCardTitle,
-  getCardDescription
+  renderCard
 }: ListPageProps<T>) {
   const [items, setItems] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,9 +44,7 @@ export default function ListPage<T extends { id: number }>({
         <Row gutter={[16, 16]}>
           {items.map((item) => (
             <Col xs={24} sm={12} md={8} lg={6} key={item.id} span={6}>
-              <Card hoverable title={getCardTitle(item)}>
-                {getCardDescription && <Card.Meta description={getCardDescription(item)} />}
-              </Card>
+              {renderCard(item)}
             </Col>
           ))}
         </Row>
