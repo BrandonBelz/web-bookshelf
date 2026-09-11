@@ -1,6 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Typography } from "antd";
+import { Card, Divider, Rate, Space, Tag, Typography } from "antd";
+import {
+  BookOutlined,
+  CommentOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { Book } from "../types/books";
 import { getBookById } from "../api/books";
 import Loading from "./Loading";
@@ -13,6 +18,7 @@ const { Paragraph, Text, Title } = Typography;
 
 export default function BookDetails() {
   const id = Number(useParams().id);
+  const navigate = useNavigate();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,28 +43,95 @@ export default function BookDetails() {
 
   if (book) {
     return (
-      <>
-        <Title level={2}>{book.title}</Title>
-        {book.description && <Paragraph>{book.description}</Paragraph>}
-        {book.rating && <Text>Rating: {book.rating}</Text>}
-        {book.review && <Paragraph>Review: {book.review}</Paragraph>}
+      <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+        <Card>
+          <Space orientation="vertical" size="middle">
+            <Title level={2}>{book.title}</Title>
 
-        <Title level={4}>Authors</Title>
-        <List
-          items={book.authors}
-          renderCard={(author) => <AuthorCard author={author} />}
-        />
+            {/* Authors and Volume associations */}
+            <Space size="small" wrap>
+              {book.authors && book.authors.length > 0 && (
+                book.authors.map((author) => (
+                  <Tag
+                    key={author.id}
+                    icon={<UserOutlined />}
+                    color="blue"
+                    onClick={() => navigate(`/authors/${author.id}`)}
+                  >
+                    {author.name}
+                  </Tag>
+                ))
+              )}
+
+              {book.volume && (
+                <Tag
+                  icon={<BookOutlined />}
+                  color="cyan"
+                  onClick={() => navigate(`/volumes/${book.volume!.id}`)}
+                >
+                  {book.volume.title || "Part of Volume"}
+                </Tag>
+              )}
+            </Space>
+
+            {/* Rating */}
+            {book.rating !== undefined && book.rating !== null && (
+              <Space align="center" size="small">
+                <Rate disabled allowHalf value={book.rating} />
+                <Text strong>{book.rating}</Text>
+                <Text type="secondary">/ 5.0</Text>
+              </Space>
+            )}
+
+            {/* Book Description */}
+            {book.description && (
+              <>
+                <Divider />
+                <div>
+                  <Title level={5}>Description</Title>
+                  <Paragraph>{book.description}</Paragraph>
+                </div>
+              </>
+            )}
+
+            {/* Personal Review */}
+            {book.review && (
+              <Card
+                size="small"
+                title={
+                  <Space align="center">
+                    <CommentOutlined />
+                    <span>Review</span>
+                  </Space>
+                }
+              >
+                <Paragraph italic>{book.review}</Paragraph>
+              </Card>
+            )}
+          </Space>
+        </Card>
+
+        {/* Authors list */}
+        {book.authors && book.authors.length > 0 && (
+          <div>
+            <Title level={4}>Authors</Title>
+            <List
+              items={book.authors}
+              renderCard={(author) => <AuthorCard author={author} />}
+            />
+          </div>
+        )}
 
         {book.volume && (
-          <>
+          <div>
             <Title level={4}>Volume</Title>
             <List
               items={[book.volume]}
               renderCard={(volume) => <VolumeCard volume={volume} />}
             />
-          </>
+          </div>
         )}
-      </>
+      </Space>
     );
   }
 
