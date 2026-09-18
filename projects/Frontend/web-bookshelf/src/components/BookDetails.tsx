@@ -1,13 +1,25 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Card, Divider, Rate, Space, Tag, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Popconfirm,
+  Rate,
+  Row,
+  Space,
+  Tag,
+  Typography,
+  message,
+} from "antd";
 import {
   BookOutlined,
   CommentOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { Book } from "../types/books";
-import { getBookById } from "../api/books";
+import { deleteBook, getBookById } from "../api/books";
 import Loading from "./Loading";
 import Error from "./Error";
 import AuthorCard from "./AuthorCard";
@@ -38,6 +50,16 @@ export default function BookDetails() {
     fetchBook();
   }, [id]);
 
+  const handleDelete = async () => {
+    try {
+      await deleteBook(id);
+      message.success("Book deleted successfully");
+      navigate("/books");
+    } catch (err) {
+      message.error((err as Error).message || "Failed to delete book");
+    }
+  };
+
   if (loading) return Loading();
   if (error) return <Error message={error} />;
 
@@ -45,8 +67,22 @@ export default function BookDetails() {
     return (
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
         <Card>
-          <Space orientation="vertical" size="middle">
-            <Title level={2}>{book.title}</Title>
+          <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
+            <Row justify="space-between" align="middle" gutter={[16, 16]}>
+              <Col>
+                <Title level={2}>{book.title}</Title>
+              </Col>
+              <Col>
+                <Popconfirm
+                  title="Delete this book?"
+                  onConfirm={handleDelete}
+                  okText="Delete"
+                  okButtonProps={{ danger: true }}
+                >
+                  <Button danger>Delete</Button>
+                </Popconfirm>
+              </Col>
+            </Row>
 
             {/* Authors and Volume associations */}
             <Space size="small" wrap>

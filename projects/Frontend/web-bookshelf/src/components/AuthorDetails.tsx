@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Avatar, Card, Col, Row, Space, Tag, Typography } from "antd";
+import { Avatar, Button, Card, Col, Popconfirm, Row, Space, Tag, Typography, message } from "antd";
 import { BookOutlined, UserOutlined } from "@ant-design/icons";
 import type { Author } from "../types/authors";
-import { getAuthorById } from "../api/authors";
+import { deleteAuthor, getAuthorById } from "../api/authors";
 import Loading from "./Loading";
 import Error from "./Error";
 import BookCard from "./BookCard";
@@ -13,6 +13,7 @@ const { Text, Title } = Typography;
 
 export default function AuthorDetails() {
   const id = Number(useParams().id);
+  const navigate = useNavigate();
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,6 +33,16 @@ export default function AuthorDetails() {
     fetchAuthor();
   }, [id]);
 
+  const handleDelete = async () => {
+    try {
+      await deleteAuthor(id);
+      message.success("Author deleted successfully");
+      navigate("/authors");
+    } catch (err) {
+      message.error((err as Error).message || "Failed to delete author");
+    }
+  };
+
   if (loading) return Loading();
   if (error) return <Error message={error} />;
 
@@ -43,7 +54,7 @@ export default function AuthorDetails() {
         <Card>
           <Row justify="space-between" align="middle" gutter={[16, 16]}>
             <Col>
-              <Space size="middle" align="center">
+              <Space size="middle" align="center" style={{ width: "100%" }}>
                 <Avatar size={54} icon={<UserOutlined />} />
                 <Space orientation="vertical" size={0}>
                   <Title level={2}>{author.name}</Title>
@@ -53,9 +64,19 @@ export default function AuthorDetails() {
             </Col>
 
             <Col>
-              <Tag color="blue" icon={<BookOutlined />}>
-                {bookCount} {bookCount === 1 ? "Book" : "Books"}
-              </Tag>
+              <Space align="center">
+                <Tag color="blue" icon={<BookOutlined />}>
+                  {bookCount} {bookCount === 1 ? "Book" : "Books"}
+                </Tag>
+                <Popconfirm
+                  title="Delete this author?"
+                  onConfirm={handleDelete}
+                  okText="Delete"
+                  okButtonProps={{ danger: true }}
+                >
+                  <Button danger>Delete</Button>
+                </Popconfirm>
+              </Space>
             </Col>
           </Row>
         </Card>

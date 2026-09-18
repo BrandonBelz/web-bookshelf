@@ -1,6 +1,17 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Card, Col, Descriptions, Row, Space, Tag, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Descriptions,
+  Popconfirm,
+  Row,
+  Space,
+  Tag,
+  Typography,
+  message,
+} from "antd";
 import type { DescriptionsProps } from "antd";
 import {
   BarcodeOutlined,
@@ -12,7 +23,7 @@ import {
   ShopOutlined,
 } from "@ant-design/icons";
 import type { Volume } from "../types/volumes";
-import { getVolumeById } from "../api/volumes";
+import { deleteVolume, getVolumeById } from "../api/volumes";
 import Loading from "./Loading";
 import Error from "./Error";
 import BookCard from "./BookCard";
@@ -28,6 +39,7 @@ function getVolumeTitle(volume: Volume) {
 
 export default function VolumeDetails() {
   const id = Number(useParams().id);
+  const navigate = useNavigate();
   const [volume, setVolume] = useState<Volume | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,6 +58,16 @@ export default function VolumeDetails() {
     };
     fetchVolume();
   }, [id]);
+
+  const handleDelete = async () => {
+    try {
+      await deleteVolume(id);
+      message.success("Volume deleted successfully");
+      navigate("/volumes");
+    } catch (err) {
+      message.error((err as Error).message || "Failed to delete volume");
+    }
+  };
 
   if (loading) return Loading();
   if (error) return <Error message={error} />;
@@ -138,24 +160,34 @@ export default function VolumeDetails() {
     return (
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
         <Card>
-          <Space orientation="vertical" size="middle">
+          <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
             <Row justify="space-between" align="middle" gutter={[16, 16]}>
               <Col>
                 <Title level={2}>{getVolumeTitle(volume)}</Title>
               </Col>
               <Col>
-                <Tag
-                  color={volume.isOwned ? "success" : "default"}
-                  icon={
-                    volume.isOwned ? (
-                      <CheckCircleOutlined />
-                    ) : (
-                      <CloseCircleOutlined />
-                    )
-                  }
-                >
-                  {volume.isOwned ? "In Collection" : "Not Owned"}
-                </Tag>
+                <Space align="center">
+                  <Tag
+                    color={volume.isOwned ? "success" : "default"}
+                    icon={
+                      volume.isOwned ? (
+                        <CheckCircleOutlined />
+                      ) : (
+                        <CloseCircleOutlined />
+                      )
+                    }
+                  >
+                    {volume.isOwned ? "In Collection" : "Not Owned"}
+                  </Tag>
+                  <Popconfirm
+                    title="Delete this volume?"
+                    onConfirm={handleDelete}
+                    okText="Delete"
+                    okButtonProps={{ danger: true }}
+                  >
+                    <Button danger>Delete</Button>
+                  </Popconfirm>
+                </Space>
               </Col>
             </Row>
 
