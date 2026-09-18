@@ -1,6 +1,7 @@
 import { getBooks } from "../api/books";
 import type { BookMinimal } from "../types/books";
 import BookCard from "./BookCard";
+import AddBookCard from "./AddBookCard";
 import ListPage from "./ListPage";
 
 export default function BooksPage() {
@@ -8,6 +9,8 @@ export default function BooksPage() {
     <ListPage<BookMinimal>
       pageTitle="Books"
       fetchData={getBooks}
+      prependCard={<AddBookCard />}
       renderCard={(book) => <BookCard book={book} />}
-    />);
+    />
+  );
 }

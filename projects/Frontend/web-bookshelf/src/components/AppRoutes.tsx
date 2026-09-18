@@ -6,6 +6,7 @@ import AuthorDetails from './AuthorDetails';
 import BookDetails from './BookDetails';
 import VolumeDetails from './VolumeDetails';
 import AuthorCreatePage from './AuthorCreatePage';
+import BookCreatePage from './BookCreatePage';
 
 export default function AppRoutes() {
   return (
@@ -13,6 +14,7 @@ export default function AppRoutes() {
       <Route path="/books" element={<BooksPage />} />
       <Route path="/authors" element={<AuthorsPage />} />
       <Route path="/volumes" element={<VolumesPage />} />
+      <Route path="/books/new" element={<BookCreatePage />} />
       <Route path="books/:id" element={<BookDetails />} />
       <Route path="volumes/:id" element={<VolumeDetails />} />
       <Route path="/authors/new" element={<AuthorCreatePage />} />

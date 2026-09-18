@@ -24,18 +24,13 @@ import {
 } from "@ant-design/icons";
 import type { Volume } from "../types/volumes";
 import { deleteVolume, getVolumeById } from "../api/volumes";
+import { getVolumeTitle } from "../utils/volume";
 import Loading from "./Loading";
 import Error from "./Error";
 import BookCard from "./BookCard";
 import List from "./List";
 
 const { Text, Title } = Typography;
-
-function getVolumeTitle(volume: Volume) {
-  if (volume.title) return volume.title;
-  if (volume.books.length > 0) return volume.books[0].title;
-  return "Untitled";
-}
 
 export default function VolumeDetails() {
   const id = Number(useParams().id);

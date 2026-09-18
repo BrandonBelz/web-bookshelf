@@ -7,17 +7,12 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import type { VolumeMinimal } from "../types/volumes";
+import { getVolumeTitle } from "../utils/volume";
 
 const { Text } = Typography;
 
 interface VolumeCardProps {
   volume: VolumeMinimal;
-}
-
-function getVolumeTitle(volume: VolumeMinimal) {
-  if (volume.title) return volume.title;
-  if (volume.books.length > 0) return volume.books[0].title;
-  return "Untitled";
 }
 
 export default function VolumeCard({ volume }: VolumeCardProps) {

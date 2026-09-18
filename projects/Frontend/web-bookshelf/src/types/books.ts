@@ -5,7 +5,7 @@ export interface Book {
   id: number;
   title: string;
   authors: AuthorMinimal[];
-  description?: string;
+  description?: string | null;
   rating?: number;
   review?: string;
   volume?: VolumeMinimal;
@@ -23,7 +23,7 @@ export interface BookMinimal {
 export interface BookCreateRequest {
   title: string;
   authorIds?: number[];
-  description?: string;
+  description?: string | null;
   rating?: number;
   review?: string;
   volumeId?: number;
