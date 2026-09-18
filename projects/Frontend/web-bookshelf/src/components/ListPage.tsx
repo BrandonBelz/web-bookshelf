@@ -9,12 +9,14 @@ interface ListPageProps<T> {
   pageTitle: string;
   fetchData: () => Promise<{ data: T[] }>;
   renderCard: (item: T) => React.ReactNode;
+  prependCard?: React.ReactNode;
 };
 
 export default function ListPage<T extends { id: number }>({
   pageTitle,
   fetchData,
-  renderCard
+  renderCard,
+  prependCard
 }: ListPageProps<T>) {
   const [items, setItems] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,6 +44,11 @@ export default function ListPage<T extends { id: number }>({
       {error && <Error message={error} />}
       {!(loading || error) && (
         <Row gutter={[16, 16]}>
+          {prependCard && (
+            <Col xs={24} sm={12} md={8} lg={6} span={6}>
+              {prependCard}
+            </Col>
+          )}
           {items.map((item) => (
             <Col xs={24} sm={12} md={8} lg={6} key={item.id} span={6}>
               {renderCard(item)}
