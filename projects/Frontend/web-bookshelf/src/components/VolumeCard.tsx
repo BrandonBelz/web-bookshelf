@@ -28,8 +28,11 @@ export default function VolumeCard({ volume }: VolumeCardProps) {
     <Card
       hoverable
       onClick={() => navigate(`/volumes/${volume.id}`)}
+      style={{
+        height: "100%",
+      }}
     >
-      <Space direction="vertical" size="middle">
+      <Space orientation="vertical" size="middle">
         <Space align="start" size="small">
           <ReadOutlined />
           <Text strong>{getVolumeTitle(volume)}</Text>

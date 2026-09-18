@@ -21,8 +21,11 @@ export default function BookCard({ book }: BookCardProps) {
     <Card
       hoverable
       onClick={() => navigate(`/books/${book.id}`)}
+      style={{
+        height: "100%",
+      }}
     >
-      <Space direction="vertical" size="middle">
+      <Space orientation="vertical" size="middle">
         <Space align="start" size="small">
           <BookOutlined />
           <Text strong>{book.title}</Text>

@@ -11,12 +11,14 @@ export default function AddAuthorCard() {
     <Card
       hoverable
       onClick={() => navigate("/authors/new")}
+      style={{
+        height: "100%",
+      }}
     >
       <Space size={12} align="center">
         <Avatar size="large" icon={<PlusOutlined />} />
         <Space orientation="vertical" size={0}>
           <Text strong>Add Author</Text>
-          <Text type="secondary">Create new</Text>
         </Space>
       </Space>
     </Card>

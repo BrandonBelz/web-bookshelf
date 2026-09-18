@@ -16,10 +16,13 @@ export default function AuthorCard({ author }: AuthorCardProps) {
     <Card
       hoverable
       onClick={() => navigate(`/authors/${author.id}`)}
+      style={{
+        height: "100%",
+      }}
     >
       <Space size={12} align="center">
         <Avatar size="large" icon={<UserOutlined />} />
-        <Space direction="vertical" size={0}>
+        <Space orientation="vertical" size={0}>
           <Text strong>{author.name}</Text>
           <Text type="secondary">Author</Text>
         </Space>
