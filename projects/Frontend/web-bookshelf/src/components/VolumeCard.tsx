@@ -1,13 +1,13 @@
 import { Card, Space, Tag, Typography } from "antd";
 import {
   BarcodeOutlined,
+  BookOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
   ReadOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import type { VolumeMinimal } from "../types/volumes";
-import { getVolumeTitle } from "../utils/volume";
 
 const { Text } = Typography;
 
@@ -17,7 +17,6 @@ interface VolumeCardProps {
 
 export default function VolumeCard({ volume }: VolumeCardProps) {
   const navigate = useNavigate();
-  const isStandalone = !volume.title && volume.books.length === 1;
 
   return (
     <Card
@@ -30,11 +29,11 @@ export default function VolumeCard({ volume }: VolumeCardProps) {
       <Space orientation="vertical" size="middle">
         <Space align="start" size="small">
           <ReadOutlined />
-          <Text strong>{getVolumeTitle(volume)}</Text>
+          <Text strong>{volume.title}</Text>
         </Space>
 
         <Space direction="vertical" size="small">
-          {!isStandalone && volume.books && volume.books.length > 0 && (
+          {volume.hasMultipleBooks && volume.books && volume.books.length > 0 && (
             <Text type="secondary">
               {volume.books.map((b) => b.title).join(", ")}
             </Text>
@@ -47,7 +46,12 @@ export default function VolumeCard({ volume }: VolumeCardProps) {
           )}
         </Space>
 
-        <div>
+        <Space size="small" wrap>
+          {volume.hasMultipleBooks && (
+            <Tag color="blue" icon={<BookOutlined />}>
+              Multiple Books
+            </Tag>
+          )}
           <Tag
             color={volume.isOwned ? "success" : "default"}
             icon={
@@ -60,7 +64,7 @@ export default function VolumeCard({ volume }: VolumeCardProps) {
           >
             {volume.isOwned ? "In Collection" : "Not Owned"}
           </Tag>
-        </div>
+        </Space>
       </Space>
     </Card>
   );

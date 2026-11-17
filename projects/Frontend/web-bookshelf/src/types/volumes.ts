@@ -3,7 +3,7 @@ import type { VolumeSetMinimal } from './volumeSets';
 
 export interface Volume {
   id: number;
-  title?: string;
+  title: string;
   books: BookMinimal[];
   isbn?: string;
   pages: number;
@@ -12,16 +12,18 @@ export interface Volume {
   obtainedDate?: string;
   isOwned: boolean;
   set?: VolumeSetMinimal;
+  hasMultipleBooks: boolean;
   createdAt: string;
   updatedAt: string;
 };
 
 export interface VolumeMinimal {
   id: number;
-  title?: string;
+  title: string;
   books: BookMinimal[];
   isbn?: string;
   isOwned: boolean;
+  hasMultipleBooks: boolean;
   volumeSetId?: number;
 };
 

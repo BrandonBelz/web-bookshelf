@@ -15,7 +15,6 @@ import {
 import { createBook } from "../api/books";
 import { getAuthors } from "../api/authors";
 import { getVolumes } from "../api/volumes";
-import { getVolumeTitle } from "../utils/volume";
 import type { AuthorMinimal } from "../types/authors";
 import type { VolumeMinimal } from "../types/volumes";
 
@@ -75,7 +74,7 @@ export default function BookCreatePage() {
   }));
 
   const volumeOptions = volumes.map((volume) => ({
-    label: getVolumeTitle(volume),
+    label: volume.title,
     value: volume.id,
   }));
 

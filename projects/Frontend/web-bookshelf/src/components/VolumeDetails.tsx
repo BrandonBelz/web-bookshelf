@@ -15,6 +15,7 @@ import {
 import type { DescriptionsProps } from "antd";
 import {
   BarcodeOutlined,
+  BookOutlined,
   CalendarOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -24,7 +25,6 @@ import {
 } from "@ant-design/icons";
 import type { Volume } from "../types/volumes";
 import { deleteVolume, getVolumeById } from "../api/volumes";
-import { getVolumeTitle } from "../utils/volume";
 import Loading from "./Loading";
 import Error from "./Error";
 import BookCard from "./BookCard";
@@ -158,10 +158,15 @@ export default function VolumeDetails() {
           <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
             <Row justify="space-between" align="middle" gutter={[16, 16]}>
               <Col>
-                <Title level={2}>{getVolumeTitle(volume)}</Title>
+                <Title level={2}>{volume.title}</Title>
               </Col>
               <Col>
                 <Space align="center">
+                  {volume.hasMultipleBooks && (
+                    <Tag color="blue" icon={<BookOutlined />}>
+                      Multiple Books
+                    </Tag>
+                  )}
                   <Tag
                     color={volume.isOwned ? "success" : "default"}
                     icon={

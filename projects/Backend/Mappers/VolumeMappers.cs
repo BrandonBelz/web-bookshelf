@@ -10,7 +10,7 @@ public static class VolumeMappers
         return new VolumeMinimized
         {
             Id = volume.Id,
-            Title = volume.Title,
+            StoredTitle = volume.Title,
             Isbn = volume.Isbn,
             Books = volume.Books.Select(b => b.ToBookMinimized()).ToList(),
             VolumeSetId = volume.SetId,
@@ -23,7 +23,7 @@ public static class VolumeMappers
         return new VolumePublic
         {
             Id = volume.Id,
-            Title = volume.Title,
+            StoredTitle = volume.Title,
             ObtainedDate = volume.ObtainedDate,
             Pages = volume.Pages,
             Isbn = volume.Isbn,

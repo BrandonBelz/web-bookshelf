@@ -105,7 +105,7 @@ export default function BookDetails() {
                   color="cyan"
                   onClick={() => navigate(`/volumes/${book.volume!.id}`)}
                 >
-                  {book.volume.title || "Part of Volume"}
+                  {book.volume.title}
                 </Tag>
               )}
             </Space>
