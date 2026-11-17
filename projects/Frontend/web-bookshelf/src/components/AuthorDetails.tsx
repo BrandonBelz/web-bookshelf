@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import Error from "./Error";
 import BookCard from "./BookCard";
 import List from "./List";
+import PageNavigation from "./PageNavigation";
 
 const { Text, Title } = Typography;
 
@@ -51,6 +52,14 @@ export default function AuthorDetails() {
 
     return (
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+        <PageNavigation
+          items={[
+            { label: "Home", path: "/" },
+            { label: "Authors", path: "/authors" },
+            { label: author.name },
+          ]}
+          backPath="/authors"
+        />
         <Card>
           <Row justify="space-between" align="middle" gutter={[16, 16]}>
             <Col>

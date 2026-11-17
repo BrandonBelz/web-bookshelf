@@ -19,6 +19,7 @@ import { getBooks } from "../api/books";
 import { getVolumeSets } from "../api/volumeSets";
 import type { BookMinimal } from "../types/books";
 import type { VolumeSetMinimal } from "../types/volumeSets";
+import PageNavigation from "./PageNavigation";
 
 interface VolumeFormValues {
   title?: string;
@@ -136,9 +137,18 @@ export default function VolumeCreatePage() {
   };
 
   return (
-    <Row justify="start">
-      <Col xs={24} sm={22} md={18} lg={14} xl={10}>
-        <Card title="Add New Volume">
+    <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+      <PageNavigation
+        items={[
+          { label: "Home", path: "/" },
+          { label: "Volumes", path: "/volumes" },
+          { label: "Add New Volume" },
+        ]}
+        backPath="/volumes"
+      />
+      <Row justify="start">
+        <Col xs={24} sm={22} md={18} lg={14} xl={10}>
+          <Card title="Add New Volume">
           <Form
             form={form}
             layout="vertical"
@@ -270,8 +280,9 @@ export default function VolumeCreatePage() {
               </Space>
             </Form.Item>
           </Form>
-        </Card>
-      </Col>
-    </Row>
+          </Card>
+        </Col>
+      </Row>
+    </Space>
   );
 }

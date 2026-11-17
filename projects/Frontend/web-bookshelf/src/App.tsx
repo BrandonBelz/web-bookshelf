@@ -1,18 +1,23 @@
 import { Layout, Menu } from 'antd';
 import AppRoutes from './components/AppRoutes';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Sider, Content } = Layout;
 
 function App() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const selectedKey = pathname === '/'
+    ? '/'
+    : `/${pathname.split('/')[1]}`;
 
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider>
-        <Menu theme='dark' onClick={({ key }) => {
+        <Menu theme='dark' selectedKeys={[selectedKey]} onClick={({ key }) => {
           navigate(key);
         }} items={[
+          { label: 'Home', key: '/' },
           { label: 'Books', key: '/books' },
           { label: 'Authors', key: '/authors' },
           { label: 'Volumes', key: '/volumes' },

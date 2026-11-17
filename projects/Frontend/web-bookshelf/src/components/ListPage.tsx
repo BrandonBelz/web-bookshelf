@@ -2,6 +2,7 @@ import { Col, Row, Typography } from 'antd';
 import { useState, useEffect } from 'react';
 import Loading from './Loading';
 import Error from './Error';
+import PageNavigation from './PageNavigation';
 
 const { Title } = Typography;
 
@@ -39,6 +40,10 @@ export default function ListPage<T extends { id: number }>({
 
   return (
     <>
+      <PageNavigation
+        items={[{ label: 'Home', path: '/' }, { label: pageTitle }]}
+        backPath="/"
+      />
       <Title level={2}>{pageTitle}</Title>
       {loading && <Loading />}
       {error && <Error message={error} />}

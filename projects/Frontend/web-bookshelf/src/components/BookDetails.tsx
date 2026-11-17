@@ -25,6 +25,7 @@ import Error from "./Error";
 import AuthorCard from "./AuthorCard";
 import VolumeCard from "./VolumeCard";
 import List from "./List";
+import PageNavigation from "./PageNavigation";
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -66,6 +67,14 @@ export default function BookDetails() {
   if (book) {
     return (
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+        <PageNavigation
+          items={[
+            { label: "Home", path: "/" },
+            { label: "Books", path: "/books" },
+            { label: book.title },
+          ]}
+          backPath="/books"
+        />
         <Card>
           <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
             <Row justify="space-between" align="middle" gutter={[16, 16]}>

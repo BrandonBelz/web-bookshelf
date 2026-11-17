@@ -17,6 +17,7 @@ import { getAuthors } from "../api/authors";
 import { getVolumes } from "../api/volumes";
 import type { AuthorMinimal } from "../types/authors";
 import type { VolumeMinimal } from "../types/volumes";
+import PageNavigation from "./PageNavigation";
 
 interface BookFormValues {
   title: string;
@@ -111,9 +112,18 @@ export default function BookCreatePage() {
   };
 
   return (
-    <Row justify="start">
-      <Col xs={24} sm={22} md={18} lg={14} xl={10}>
-        <Card title="Add New Book">
+    <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+      <PageNavigation
+        items={[
+          { label: "Home", path: "/" },
+          { label: "Books", path: "/books" },
+          { label: "Add New Book" },
+        ]}
+        backPath="/books"
+      />
+      <Row justify="start">
+        <Col xs={24} sm={22} md={18} lg={14} xl={10}>
+          <Card title="Add New Book">
           <Form
             form={form}
             layout="vertical"
@@ -207,8 +217,9 @@ export default function BookCreatePage() {
               </Space>
             </Form.Item>
           </Form>
-        </Card>
-      </Col>
-    </Row>
+          </Card>
+        </Col>
+      </Row>
+    </Space>
   );
 }

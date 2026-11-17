@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Col, Form, Input, Row, Space, message } from "antd";
 import { createAuthor } from "../api/authors";
 import type { AuthorCreateRequest } from "../types/authors";
+import PageNavigation from "./PageNavigation";
 
 export default function AuthorCreatePage() {
   const navigate = useNavigate();
@@ -25,9 +26,18 @@ export default function AuthorCreatePage() {
   };
 
   return (
-    <Row justify="start">
-      <Col xs={24} sm={20} md={16} lg={12} xl={8}>
-        <Card title="Add New Author">
+    <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+      <PageNavigation
+        items={[
+          { label: "Home", path: "/" },
+          { label: "Authors", path: "/authors" },
+          { label: "Add New Author" },
+        ]}
+        backPath="/authors"
+      />
+      <Row justify="start">
+        <Col xs={24} sm={20} md={16} lg={12} xl={8}>
+          <Card title="Add New Author">
           <Form
             form={form}
             layout="vertical"
@@ -56,8 +66,9 @@ export default function AuthorCreatePage() {
               </Space>
             </Form.Item>
           </Form>
-        </Card>
-      </Col>
-    </Row>
+          </Card>
+        </Col>
+      </Row>
+    </Space>
   );
 }

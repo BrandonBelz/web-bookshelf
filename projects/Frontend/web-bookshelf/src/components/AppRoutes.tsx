@@ -8,10 +8,12 @@ import VolumeDetails from './VolumeDetails';
 import AuthorCreatePage from './AuthorCreatePage';
 import BookCreatePage from './BookCreatePage';
 import VolumeCreatePage from './VolumeCreatePage';
+import HomePage from './HomePage';
 
 export default function AppRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/books" element={<BooksPage />} />
       <Route path="/authors" element={<AuthorsPage />} />
       <Route path="/volumes" element={<VolumesPage />} />

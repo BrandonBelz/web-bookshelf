@@ -29,6 +29,7 @@ import Loading from "./Loading";
 import Error from "./Error";
 import BookCard from "./BookCard";
 import List from "./List";
+import PageNavigation from "./PageNavigation";
 
 const { Text, Title } = Typography;
 
@@ -154,6 +155,14 @@ export default function VolumeDetails() {
 
     return (
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
+        <PageNavigation
+          items={[
+            { label: "Home", path: "/" },
+            { label: "Volumes", path: "/volumes" },
+            { label: volume.title },
+          ]}
+          backPath="/volumes"
+        />
         <Card>
           <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
             <Row justify="space-between" align="middle" gutter={[16, 16]}>
