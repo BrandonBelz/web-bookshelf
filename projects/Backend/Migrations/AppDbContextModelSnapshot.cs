@@ -90,26 +90,6 @@ namespace Backend.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Backend.Models.Bookshelf", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bookshelves");
-                });
-
             modelBuilder.Entity("Backend.Models.ReadLog", b =>
                 {
                     b.Property<int>("Id")
@@ -122,10 +102,10 @@ namespace Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateOnly?>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("date");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -136,36 +116,6 @@ namespace Backend.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("ReadLogs");
-                });
-
-            modelBuilder.Entity("Backend.Models.Shelving", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookshelfId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateOnly>("ShelvedDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("BookshelfId");
-
-                    b.ToTable("Shelvings");
                 });
 
             modelBuilder.Entity("Backend.Models.Volume", b =>
@@ -180,13 +130,13 @@ namespace Backend.Migrations
                     b.Property<string>("Isbn")
                         .HasColumnType("longtext");
 
-                    b.Property<DateOnly?>("ObtainedDate")
+                    b.Property<DateTime?>("ObtainedDate")
                         .HasColumnType("date");
 
                     b.Property<int>("Pages")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly?>("PublishedDate")
+                    b.Property<DateTime?>("PublishedDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Publisher")
@@ -265,25 +215,6 @@ namespace Backend.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("Backend.Models.Shelving", b =>
-                {
-                    b.HasOne("Backend.Models.Book", "Book")
-                        .WithMany("Shelvings")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Backend.Models.Bookshelf", "Bookshelf")
-                        .WithMany("Shelvings")
-                        .HasForeignKey("BookshelfId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Bookshelf");
-                });
-
             modelBuilder.Entity("Backend.Models.Volume", b =>
                 {
                     b.HasOne("Backend.Models.VolumeSet", "Set")
@@ -297,13 +228,6 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.Book", b =>
                 {
                     b.Navigation("ReadLogs");
-
-                    b.Navigation("Shelvings");
-                });
-
-            modelBuilder.Entity("Backend.Models.Bookshelf", b =>
-                {
-                    b.Navigation("Shelvings");
                 });
 
             modelBuilder.Entity("Backend.Models.Volume", b =>

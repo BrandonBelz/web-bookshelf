@@ -15,6 +15,5 @@ public class Book
     public int? VolumeId { get; set; }
     public Volume? Volume { get; set; }
     public List<Author> Authors { get; set; } = new List<Author>();
-    public List<Shelving> Shelvings { get; set; } = new List<Shelving>();
     public List<ReadLog> ReadLogs { get; set; } = new List<ReadLog>();
 }

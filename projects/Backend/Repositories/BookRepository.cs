@@ -25,8 +25,6 @@ public class BookRepository
             .Books.Include(b => b.Authors)
             .Include(b => b.Volume)
             .Include(b => b.ReadLogs)
-            .Include(b => b.Shelvings)
-                .ThenInclude(s => s.Bookshelf)
             .FirstOrDefaultAsync(b => b.Id == id);
     }
 

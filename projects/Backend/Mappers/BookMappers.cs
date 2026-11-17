@@ -26,7 +26,6 @@ public static class BookMappers
             Review = book.Review,
             Authors = book.Authors.Select(a => a.ToAuthorMinimized()).ToList(),
             ReadLogs = book.ReadLogs.Select(rl => rl.ToReadLogMinimized()).ToList(),
-            Shelvings = book.Shelvings.Select(s => s.ToShelvingMinimized()).ToList(),
             Volume = book.Volume?.ToVolumeMinimized(),
             CreatedAt = book.CreatedAt,
             UpdatedAt = book.UpdatedAt,

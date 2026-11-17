@@ -1,6 +1,5 @@
 using Backend.Dtos.Authors;
 using Backend.Dtos.ReadLogs;
-using Backend.Dtos.Shelvings;
 using Backend.Dtos.Volumes;
 
 namespace Backend.Dtos.Books;
@@ -16,7 +15,6 @@ public class BookPublic
     public DateTime UpdatedAt { get; set; }
     public List<AuthorMinimized> Authors { get; set; } = null!;
     public List<ReadLogMinimized> ReadLogs { get; set; } = null!;
-    public List<ShelvingMinimized> Shelvings { get; set; } = null!;
     public VolumeMinimized? Volume { get; set; }
 
     public bool IsPartOfVolume => Volume != null && Volume.Books.Count > 1;
